@@ -3,6 +3,7 @@ package com.sachinchandil.indie.util.lifecycle.arch
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import com.ace.diettracker.util.initViewModel
 /**
  * Created by sachin on 28/5/17.
  */
-abstract class BaseFragment<E : ViewModel> : Fragment() {
+abstract class BaseDialogFragment<E : ViewModel> : DialogFragment() {
 
     val mViewModel: E  by lazy { initViewModel(getViewModelClass(), attachViewModelToActivity) }
 
@@ -74,7 +75,7 @@ abstract class BaseFragment<E : ViewModel> : Fragment() {
     fun isViewModelAttachedToActivity(): Boolean = attachViewModelToActivity
 
     companion object {
-        val TAG_NAME = (BaseFragment::class.annotations.find { it == RequiresTagName::class } as? RequiresTagName)?.tagName
+        val TAG_NAME = (BaseDialogFragment::class.annotations.find { it == RequiresTagName::class } as? RequiresTagName)?.tagName
 
         fun findInstance(activity: FragmentActivity?): Fragment? {
             if (activity == null) return null

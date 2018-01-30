@@ -9,8 +9,16 @@ import android.support.v7.widget.Toolbar
 /**
  * Created by sachin on 28/5/17.
  */
-fun <T: ViewModel> Fragment.initViewModel(c:Class<T>):T{
-    val model = ViewModelProviders.of(this).get(c)
+fun <T: ViewModel> Fragment.initViewModel(c:Class<T>, attachViewModelToActivity: Boolean):T{
+    val model: T
+    if (attachViewModelToActivity) {
+        if (activity == null)
+            model = ViewModelProviders.of(this).get<T>(c)
+        else
+            model = ViewModelProviders.of(activity!!).get<T>(c)
+    }
+    else
+        model = ViewModelProviders.of(this).get<T>(c)
     return model
 }
 
